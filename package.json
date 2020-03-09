@@ -1,10 +1,10 @@
 {
-  "name": "big-bang-starfield",
+  "name": "react-big-bang-star-field",
   "version": "1.0.0",
-  "description": "Big Bang Starfield Canvas Animation",
+  "description": "Big Bang Star Field Canvas Animation",
   "author": "chrisjosephs",
   "license": "MIT",
-  "repository": "chrisjosephs/big-bang-starfield",
+  "repository": "chrisjosephs/react-big-bang-star-field",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",

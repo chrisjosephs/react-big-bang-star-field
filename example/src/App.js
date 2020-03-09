@@ -41,7 +41,7 @@ export default class App extends Component {
           React Starfield Animation
         </h1>
 
-        <BigBangStarfield
+        <BigBangStarField
           numParticles={400}
           style={{
             position: 'absolute',

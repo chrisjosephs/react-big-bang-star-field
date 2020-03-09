@@ -112,9 +112,10 @@ class BigBangStarField extends PureComponent <Props> {
      * @this Star
      */
     let Star = function (this: any, x: number, y: number, maxSpeed: number) {
-      if (typeof x === 'undefined') {
-        x = 0;
-      }
+      /**
+       * @todo fix initial x burst
+       */
+      this.x = 0;
       this.y = y;
       this.slope = y / x;
       this.opacity = 0;
