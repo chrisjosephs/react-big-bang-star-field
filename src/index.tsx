@@ -14,10 +14,12 @@ export interface Props {
   size: SizeMe,
   canvasRef?: object,
 }
-export interface SizeMe{
+
+export interface SizeMe {
   width: number,
   height: number
 }
+
 class BigBangStarField extends PureComponent <Props> {
 
   containerRef: React.RefObject<HTMLDivElement>;
@@ -27,7 +29,6 @@ class BigBangStarField extends PureComponent <Props> {
     super(props);
     this.containerRef = createRef();
     this.canvasRef = createRef();
-
   }
 
   static propTypes = {
@@ -49,7 +50,7 @@ class BigBangStarField extends PureComponent <Props> {
     maxStarSpeed: 3,
     scale: 4,
     size: {
-      height:500,
+      height: 500,
       width: 500
     },
     style: {}
@@ -89,6 +90,7 @@ class BigBangStarField extends PureComponent <Props> {
     </>;
     return div
   }
+
   _draw() {
 
     if (!this.canvasRef) return;
@@ -110,19 +112,18 @@ class BigBangStarField extends PureComponent <Props> {
      * @this Star
      */
     let Star = function (this: any, x: number, y: number, maxSpeed: number) {
-      /*todo: work out why x needs to originally be set to 0 now  */
-      this.x = 0; // initial innit
+      if (typeof x === 'undefined') {
+        x = 0;
+      }
       this.y = y;
       this.slope = y / x;
       this.opacity = 0;
       this.speed = Math.max(Math.random() * maxSpeed, 1);
-
     };
 
     Star.prototype.distanceTo = function (originX: number, originY: number) {
       return Math.sqrt(Math.pow(originX - this.x, 2) + Math.pow(originY - this.y, 2));
     };
-
 
     Star.prototype.resetPosition = function (_x: number, _y: number, _maxSpeed: number) {
       Star.apply(this, arguments);
@@ -146,7 +147,8 @@ class BigBangStarField extends PureComponent <Props> {
        */
       getRandomStar: function (minX: number, minY: number, maxX: number, maxY: number, maxSpeed: number) {
         let coords = StarFactory.getRandomPosition(minX, minY, maxX, maxY);
-        /// HMMMMMMMMMMMMMM
+        /// HMMMMMMMMMMMMM
+
         // @ts-ignore
         return new Star(coords.x, coords.y, maxSpeed);
       },
@@ -284,7 +286,7 @@ class BigBangStarField extends PureComponent <Props> {
             StarFactory.getRandomStar(-this.width / 2, -this.height / 2, this.width, this.height, this.maxStarSpeed)
           );
         } catch {
-        console.log("caught u!");
+          console.log("caught u!");
         }
       }
       console.log(this.starField);
@@ -309,6 +311,7 @@ class BigBangStarField extends PureComponent <Props> {
   }
 
 }
+
 export default BigBangStarField
 
 
