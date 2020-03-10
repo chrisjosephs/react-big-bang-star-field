@@ -115,9 +115,7 @@ class BigBangStarField extends PureComponent <Props> {
       /**
        * @todo fix initial x burst
        */
-      this.x = 1;
-      this.x *=  Math.random() < 0.5 ? -1 : 1;
-
+      this.x = ((Math.random() * 2) - 1) * 100;
       this.y = y;
       this.slope = y / x;
       this.opacity = 0;
@@ -289,10 +287,8 @@ class BigBangStarField extends PureComponent <Props> {
             StarFactory.getRandomStar(-this.width / 2, -this.height / 2, this.width, this.height, this.maxStarSpeed)
           );
         } catch {
-          console.log("caught u!");
         }
       }
-      console.log(this.starField);
       raf(this._tick.bind(this));
       raf(this._watchCanvasSize.bind(this));
     };
