@@ -52,10 +52,9 @@ class Example extends Component {
 Note that the canvas size will automatically be inferred based on available space via [react-sizeme](https://github.com/ctrlplusb/react-sizeme), so it should be really easy to use this component as a fullscreen background as in the [demo](https://chrisjosephs.github.io/react-big-bang-starfield/)).
 
 ## Related
-
-- [react-particle-animation](https://github.com/transitive-bullshit/react-particle-animation) - Canvas-based particle animation for React, that also uses sizeMe
 - [zembrzuski js starfield](https://codepen.io/zembrzuski/pen/zRzMab) - Canvas based js starfield codepen
-- [react-particle-animation](https://github.com/transitive-bullshit/react-starfield-animation) - Canvas-based starfield particle animation for React.
+- [react-particle-animation](https://github.com/transitive-bullshit/react-particle-animation) - Canvas-based particle animation for React, that also uses sizeMe
+- [react-starfield-animation](https://github.com/transitive-bullshit/react-starfield-animation) - Canvas-based starfield particle animation for React.
 ## License
 
 MIT © [chrisjosephs](https://github.com/chrisjosephs)
