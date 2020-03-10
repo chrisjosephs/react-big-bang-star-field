@@ -30,9 +30,6 @@ class Example extends Component {
           scale={4}
         style={{
           position: 'absolute',
-          numStars: 666,
-          maxStarSpeed: 1,
-          scale: 4,
           width: '100%',
           height: '100%'
         }}
