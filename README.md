@@ -1,6 +1,15 @@
-# big-bang-starfield
+# react-big-bang-star-field
 
-> Big Bang Starfield Canvas Animation
+> ✨ Canvas-based Big Bang Star Field animation for React.
+
+[![NPM](https://img.shields.io/npm/v/react-starfield-animation.svg)](https://www.npmjs.com/package/react-starfield-animation) [![Build Status](https://travis-ci.org/chrisjosephs/react-big-bang-starfield-animation.svg?branch=master)](https://travis-ci.org/chrisjosephs/react-sbig-bang-starfield) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+[![Demo](https://raw.githubusercontent.com/transitive-bullshit/react-starfield-animation/master/example/demo.gif)](https://transitive-bullshit.github.io/react-starfield-animation/)
+
+## Install
+
+```bash
+npm install --save react-big-bang-star-field
 
 [![NPM](https://img.shields.io/npm/v/big-bang-starfield.svg)](https://www.npmjs.com/package/big-bang-starfield) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -12,20 +21,47 @@ npm install --save big-bang-starfield
 
 ## Usage
 
+Check out the [demo](https://chrisjosephs.github.io/react-big-bang-starfield/).
+
 ```tsx
-import * as React from 'react'
+import React, { Component } from 'react'
 
-import MyComponent from 'big-bang-starfield'
+import BigBangStarField from 'react-big-bang-star-field'
 
-class Example extends React.Component {
+class Example extends Component {
   render () {
     return (
-      <MyComponent />
+      <BigBangStarField
+        style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%'
+        }}
+      />
     )
   }
 }
 ```
 
+## Props
+
+| Property      | Type               | Default                              | Description                                                                                                                                  |
+|:----------------|------------------|:-------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------|
+| `numStars`      | number           | 333                                  | Number of stars to use. |
+| `maxStarSpeed`  | number           | 3                                    | Maximum star speed. |
+| `scale`         | number           | 4.0                                  | Scaling factor for canvas  |
+| `size`          | number           | height:500, width: 500               | Size (will be determined by sizeMe when this is fixed in tsx version) |
+| `...`           | ...              | undefined                            | Any other props are applied to the root canvas element. |
+
+Note that the canvas size will automatically be inferred based on available space via [react-sizeme](https://github.com/ctrlplusb/react-sizeme), so it should be really easy to use this component as a fullscreen background as in the [demo](https://transitive-bullshit.github.io/react-starfield-animation/).
+
+## Related
+
+- [react-particle-animation](https://github.com/transitive-bullshit/react-particle-animation) - Canvas-based particle animation for React.
+- [astral app](https://astralapp.com/) - A tool for organizing your GitHub stars with ease. Credit for the original animation goes to [Collin Henderson](https://github.com/syropian).
+
 ## License
 
 MIT © [chrisjosephs](https://github.com/chrisjosephs)
+
+This module was bootstrapped with [create-react-library](https://github.com/transitive-bullshit/create-react-library).
