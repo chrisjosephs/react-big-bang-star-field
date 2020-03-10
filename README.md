@@ -12,11 +12,6 @@
 npm install --save react-big-bang-star-field
 
 [![NPM](https://img.shields.io/npm/v/big-bang-starfield.svg)](https://www.npmjs.com/package/big-bang-starfield) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-
-## Install
-
-```bash
-npm install --save big-bang-starfield
 ```
 
 ## Usage
@@ -40,7 +35,7 @@ class Example extends Component {
       />
     )
   }
-}````
+}
 ```
 
 ## Props
