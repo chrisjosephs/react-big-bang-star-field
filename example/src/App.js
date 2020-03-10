@@ -42,7 +42,9 @@ export default class App extends Component {
         </h1>
 
         <BigBangStarField
-          numParticles={400}
+          numStars={666}
+          maxStarSpeed={1}
+          scale={4}
           style={{
             position: 'absolute',
             zIndex: 1,

@@ -25,14 +25,14 @@ class Example extends Component {
   render () {
     return (
       <BigBangStarField
-          numStars={666}
-          maxStarSpeed={1}
-          scale={4}
+        numStars={666}
+        maxStarSpeed={1}
+        scale={4}
         style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%'
-        }}
+            position: 'absolute',
+            width: '100%',
+            height: '100%'
+          }}
       />
     )
   }
