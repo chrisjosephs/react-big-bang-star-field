@@ -50,8 +50,8 @@ class BigBangStarField extends PureComponent <Props> {
     maxStarSpeed: 3,
     scale: 4,
     size: {
-      height: 500,
-      width: 500
+      height: 1000,
+      width: 2500
     },
     style: {}
   };
@@ -75,7 +75,7 @@ class BigBangStarField extends PureComponent <Props> {
            ref={this.containerRef}
            style={{
              overflow: 'hidden',
-             backgroundImage: `url(${'https://cdnuploads.aa.com.tr/uploads/Contents/2019/08/02/thumbs_b_c_e71aafb0cd4baed977ee65c59e94c941.jpg?v=171748'})`,
+             backgroundImage: `url(${'/home/crimzon/Downloadspiqsels.com-id-fvkta.jpg'})`,
              backgroundSize: 'cover',
              ...style
            }}
@@ -115,7 +115,9 @@ class BigBangStarField extends PureComponent <Props> {
       /**
        * @todo fix initial x burst
        */
-      this.x = 0;
+      this.x = 1;
+      this.x *=  Math.random() < 0.5 ? -1 : 1;
+
       this.y = y;
       this.slope = y / x;
       this.opacity = 0;
@@ -219,7 +221,7 @@ class BigBangStarField extends PureComponent <Props> {
       for (i = 0; i < this.numStars; i++) {
         star = this.starField[i];
 
-        ctx!.fillStyle = "rgba(217, 66, 244, " + star.opacity + ")";
+        ctx!.fillStyle = "rgba(217, 130, 244, " + star.opacity + ")";
         ctx!.fillRect(
           star.x + this.width / 2,
           star.y + this.height / 2,

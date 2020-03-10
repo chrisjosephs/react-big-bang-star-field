@@ -2,9 +2,9 @@
 
 > ✨ Canvas-based Big Bang Star Field animation for React.
 
-[![NPM](https://img.shields.io/npm/v/react-starfield-animation.svg)](https://www.npmjs.com/package/react-starfield-animation) [![Build Status](https://travis-ci.org/chrisjosephs/react-big-bang-starfield-animation.svg?branch=master)](https://travis-ci.org/chrisjosephs/react-sbig-bang-starfield) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-starfield-animation.svg)](https://www.npmjs.com/package/react-big-bang-star-field) [![Build Status](https://travis-ci.org/chrisjosephs/react-big-bang-starfield-animation.svg?branch=master)](https://travis-ci.org/chrisjosephs/react-sbig-bang-starfield) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-[![Demo](https://raw.githubusercontent.com/transitive-bullshit/react-starfield-animation/master/example/demo.gif)](https://transitive-bullshit.github.io/react-starfield-animation/)
+[![Demo](https://raw.githubusercontent.com/transitive-bullshit/react-starfield-animation/master/example/demo.gif)](https://chrisjosephs.github.io/react-big-bang-star-field-/)
 
 ## Install
 
@@ -40,7 +40,7 @@ class Example extends Component {
       />
     )
   }
-}
+}````
 ```
 
 ## Props
@@ -58,8 +58,8 @@ Note that the canvas size will automatically be inferred based on available spac
 ## Related
 
 - [react-particle-animation](https://github.com/transitive-bullshit/react-particle-animation) - Canvas-based particle animation for React.
-- [astral app](https://astralapp.com/) - A tool for organizing your GitHub stars with ease. Credit for the original animation goes to [Collin Henderson](https://github.com/syropian).
-
+- [zembrzuski js starfield](https://codepen.io/zembrzuski/pen/zRzMab) - Canvas based js starfield codepen
+- [react-particle-animation](https://github.com/transitive-bullshit/react-starfield-animation) - Canvas-based starfield particle animation for React.
 ## License
 
 MIT © [chrisjosephs](https://github.com/chrisjosephs)

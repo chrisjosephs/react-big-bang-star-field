@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import BigBangStarField from 'react-big-bang-star-field'
 
-import background from './stars.jpg'
+import background from './piqsels.com-id-fvkta.jpg'
 
 export default class App extends Component {
   render () {
@@ -33,12 +33,12 @@ export default class App extends Component {
         <h1
           style={{
             color: '#fff',
-            fontSize: '3em',
+            fontSize: '2.5em',
             fontFamily: 'Quicksand, "Helvetica Neue", sans-serif',
             textShadow: '2px 2px 8px rgba(0, 0, 0, 0.5)'
           }}
         >
-          React Starfield Animation
+          React Big Bang Star Field Animation
         </h1>
 
         <BigBangStarField
