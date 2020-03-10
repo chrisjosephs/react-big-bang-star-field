@@ -25,6 +25,9 @@ class Example extends Component {
   render () {
     return (
       <BigBangStarField
+          numStars={666}
+          maxStarSpeed={1}
+          scale={4}
         style={{
           position: 'absolute',
           numStars: 666,
