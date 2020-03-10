@@ -10,8 +10,6 @@
 
 ```bash
 npm install --save react-big-bang-star-field
-
-[![NPM](https://img.shields.io/npm/v/big-bang-starfield.svg)](https://www.npmjs.com/package/big-bang-starfield) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 ```
 
 ## Usage
@@ -29,6 +27,9 @@ class Example extends Component {
       <BigBangStarField
         style={{
           position: 'absolute',
+          numStars: 666,
+          maxStarSpeed: 1,
+          scale: 4,
           width: '100%',
           height: '100%'
         }}
@@ -43,16 +44,16 @@ class Example extends Component {
 | Property      | Type               | Default                              | Description                                                                                                                                  |
 |:----------------|------------------|:-------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------|
 | `numStars`      | number           | 333                                  | Number of stars to use. |
-| `maxStarSpeed`  | number           | 3                                    | Maximum star speed. |
+| `maxStarSpeed`  | number           | 1                                    | Maximum star speed. |
 | `scale`         | number           | 4.0                                  | Scaling factor for canvas  |
 | `size`          | number           | height:500, width: 500               | Size (will be determined by sizeMe when this is fixed in tsx version) |
 | `...`           | ...              | undefined                            | Any other props are applied to the root canvas element. |
 
-Note that the canvas size will automatically be inferred based on available space via [react-sizeme](https://github.com/ctrlplusb/react-sizeme), so it should be really easy to use this component as a fullscreen background as in the [demo](https://transitive-bullshit.github.io/react-starfield-animation/).
+Note that the canvas size will automatically be inferred based on available space via [react-sizeme](https://github.com/ctrlplusb/react-sizeme), so it should be really easy to use this component as a fullscreen background as in the [demo](https://chrisjosephs.github.io/react-big-bang-starfield/)).
 
 ## Related
 
-- [react-particle-animation](https://github.com/transitive-bullshit/react-particle-animation) - Canvas-based particle animation for React.
+- [react-particle-animation](https://github.com/transitive-bullshit/react-particle-animation) - Canvas-based particle animation for React, that also uses sizeMe
 - [zembrzuski js starfield](https://codepen.io/zembrzuski/pen/zRzMab) - Canvas based js starfield codepen
 - [react-particle-animation](https://github.com/transitive-bullshit/react-starfield-animation) - Canvas-based starfield particle animation for React.
 ## License

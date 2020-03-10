@@ -46,8 +46,8 @@ class BigBangStarField extends PureComponent <Props> {
   }
 
   static defaultProps = {
-    numStars: 166,
-    maxStarSpeed: 0.5,
+    numStars: 333,
+    maxStarSpeed: 1,
     scale: 4,
     size: {
       height: 1000,
