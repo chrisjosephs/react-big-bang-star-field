@@ -78,7 +78,7 @@ class BigBangStarField extends PureComponent <Props> {
            ref={this.containerRef}
            style={{
              overflow: 'hidden',
-             backgroundImage: `url(${'/home/crimzon/Downloads/piqsels.com-id-fvkta.jpg'})`,
+             backgroundImage: `url(${'/example/src/piqsels.com-id-fvkta.jpg'})`,
              backgroundSize: 'cover',
              ...style
            }}
