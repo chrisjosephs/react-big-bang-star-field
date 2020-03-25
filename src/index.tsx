@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {createRef, PureComponent} from "react";
 import * as PropTypes from "prop-types";
-// import {SizeMeProps, withSize} from "react-sizeme";
 const raf = require('raf');
+import sizeMe from 'react-sizeme';
 
 export interface Props {
-  numStars?: number,
-  maxStarSpeed?: number,
+  numStars: number,
+  maxStarSpeed: number,
   offsetX?: number,
   offsetY?: number,
   scale?: number,
@@ -24,13 +24,13 @@ class BigBangStarField extends PureComponent <Props> {
 
   containerRef: React.RefObject<HTMLDivElement>;
   canvasRef: React.RefObject<HTMLCanvasElement>;
-
+  private size: SizeMe;
   constructor(props: Props) {
     super(props);
     this.containerRef = createRef();
     this.canvasRef = createRef();
-  }
-
+    this.size = props.size;
+}
   static propTypes = {
     numStars: PropTypes.number,
     maxStarSpeed: PropTypes.number,
@@ -38,10 +38,7 @@ class BigBangStarField extends PureComponent <Props> {
     offsetY: PropTypes.number,
     scale: PropTypes.number,
     style: PropTypes.object,
-    size: PropTypes.shape({
-      width: PropTypes.number,
-      height: PropTypes.number
-    }).isRequired,
+    size: PropTypes.number,
     canvasRef: PropTypes.object,
   }
 
@@ -69,7 +66,6 @@ class BigBangStarField extends PureComponent <Props> {
       scale,
       ...rest
     } = this.props
-    // const { width, height } = this.props.size
     let div = <>
       <div className={'fullScreen'}
            ref={this.containerRef}
@@ -83,8 +79,8 @@ class BigBangStarField extends PureComponent <Props> {
       >
         <canvas
           ref={this.canvasRef}
-          width={this.props.size.width}
-          height={size.height}
+          width={this.size.width}
+          height={this.size.height}
         />
       </div>
     </>;
@@ -96,9 +92,7 @@ class BigBangStarField extends PureComponent <Props> {
     if (!this.canvasRef) return;
     const {
       scale,
-      size,
-      numStars,
-      maxStarSpeed
+      size
     } = this.props
     const ctx = this.canvasRef.current!.getContext('2d');
     const container = this.containerRef.current;
@@ -172,16 +166,25 @@ class BigBangStarField extends PureComponent <Props> {
         };
       }
     };
-    /*
-    @todo: fix this: any here and other places, fix width and height
-     */
-    let StarField = function (this: any) {
-      this.width = size.width;
-      this.width = 333;
-      this.height = 333;
-      this.starField = [];
-    };
+    class StarField{
+      _updateStarField: () => void;
+      _renderStarField: () => void;
+      maxStarSpeed: number;
+      numStars: number;
+      starField: any;
+      _adjustCanvasSize: (width: number, height: number) => void;
+      _watchCanvasSize: (elapsedTime: number) => void;
+      prevCheckTime: number;
+      oldWidth: number;
+      oldHeight: number;
+      _tick: any;
+      render: (numStars: number, maxStarSpeed: number) => void;
+      _initScene: (this: any, numStars: number) => void;
+      constructor() {
+        this.starField = [];
+      }
 
+    }
 
     StarField.prototype._updateStarField = function () {
       var i,
@@ -198,12 +201,12 @@ class BigBangStarField extends PureComponent <Props> {
         star.opacity += star.speed / 150;
 
 
-        if ((Math.abs(star.x) > this.width / 2) ||
-          (Math.abs(star.y) > this.height / 2)) {
+        if ((Math.abs(star.x) > size['width'] / 2) ||
+          (Math.abs(star.y) > size['height'] / 2)) {
 
           randomLoc = StarFactory.getRandomPosition(
-            -this.width / 10, -this.height / 10,
-            this.width / 5, this.height / 5
+            -size['width'] / 10, -size['height'] / 10,
+            size['width'] / 5, size['height'] / 5
           );
           star.resetPosition(randomLoc.x, randomLoc.y, this.maxStarSpeed);
         }
@@ -215,14 +218,14 @@ class BigBangStarField extends PureComponent <Props> {
       var i,
         star;
       ctx!.fillStyle = "rgba(255, 0, 0, 0)";
-      ctx!.clearRect(0, 0, this.width, this.height);
+      ctx!.clearRect(0, 0, size['width'], size['height']);
       for (i = 0; i < this.numStars; i++) {
         star = this.starField[i];
 
         ctx!.fillStyle = "rgba(217, 130, 244, " + star.opacity + ")";
         ctx!.fillRect(
-          star.x + this.width / 2,
-          star.y + this.height / 2,
+          star.x + size['width'] / 2,
+          star.y + size['height'] / 2,
           1, 1);
       }
     };
@@ -233,9 +236,9 @@ class BigBangStarField extends PureComponent <Props> {
     StarField.prototype._adjustCanvasSize = function (width: number, height: number) {
       // Set the canvas size to match the container ID (and cache values)
       // @ts-ignore
-      this.width = ctx!.width = width;
+      size['width'] = ctx!.width = width;
       // @ts-ignore
-      this.height = ctx!.height = height;
+      size['height'] = ctx!.height = height;
       ctx!.scale(scale!, scale!);
     };
 
@@ -284,7 +287,7 @@ class BigBangStarField extends PureComponent <Props> {
         try {
           console.log(starField);
           this.starField.push(
-            StarFactory.getRandomStar(-this.width / 2, -this.height / 2, this.width, this.height, this.maxStarSpeed)
+            StarFactory.getRandomStar(-size['width'] / 2, -size['height'] / 2, size['width'], size['height'], this.maxStarSpeed)
           );
         } catch {
         }
@@ -303,14 +306,10 @@ class BigBangStarField extends PureComponent <Props> {
       this.maxStarSpeed = maxStarSpeed;
       this._initScene(this.numStars);
     };
-
-    // @ts-ignore
-    let starField = new StarField().render(numStars, maxStarSpeed);
+    let starField = new StarField().render(this.props.numStars, this.props.maxStarSpeed);
     return (starField);
   }
-
 }
 
-export default BigBangStarField
-
-
+// @ts-ignore
+export default sizeMe({ monitorHeight: true })(BigBangStarField);

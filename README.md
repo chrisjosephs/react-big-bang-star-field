@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/react-starfield-animation.svg)](https://www.npmjs.com/package/react-big-bang-star-field) [![Build Status](https://travis-ci.org/chrisjosephs/react-big-bang-starfield-animation.svg?branch=master)](https://travis-ci.org/chrisjosephs/react-sbig-bang-starfield) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-[![Demo](https://raw.githubusercontent.com/chrisjosephs/react-big-bang-star-field/master/example/example.gif)](https://chrisjosephs.github.io/react-big-bang-star-field-/)
+    [![Demo](https://raw.githubusercontent.com/chrisjosephs/react-big-bang-star-field/master/example/example.gif)](https://chrisjosephs.github.io/react-big-bang-star-field-/)
 
 ## Install
 
@@ -14,7 +14,7 @@ npm install --save react-big-bang-star-field
 
 ## Usage
 
-Check out the [demo](https://chrisjosephs.github.io/react-big-bang-starfield/).
+Check out the [demo](https://chrisjosephs.github.io/react-big-bang-star-field/).
 
 ```tsx
 import React, { Component } from 'react'
