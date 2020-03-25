@@ -46,10 +46,6 @@ class BigBangStarField extends PureComponent <Props> {
     numStars: 333,
     maxStarSpeed: 1,
     scale: 4,
-    size: {
-      height: 1000,
-      width: 2500
-    },
     style: {}
   };
 
