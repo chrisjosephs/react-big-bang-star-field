@@ -98,19 +98,31 @@ class BigBangStarField extends PureComponent <Props> {
      * @param x {number} x coordinate of the star
      * @param y {number} y coordinate of the star
      * @param maxSpeed {number} maxSpeed
+     * opacity {number} opacity
+     * peed {number} actual speed
      * @constructor
      * @this Star
      */
-    let Star = function (this: any, x: number, y: number, maxSpeed: number) {
-      /**
-       * @todo fix initial x burst
-       */
-      this.x = ((Math.random() * 2) - 1) * 100;
-      this.y = y;
-      this.slope = y / x;
-      this.opacity = 0;
-      this.speed = Math.max(Math.random() * maxSpeed, 1);
-    };
+    class Star {
+      x: number;
+      y: number;
+      maxSpeed: number;
+      slope: number;
+      opacity: number;
+      speed:number;
+      distanceTo: (originX: number, originY: number) => number;
+      resetPosition: (_x: number, _y: number, _maxSpeed: number) => Star;
+      constructor(x:number, y:number, maxSpeed:number){
+        /**
+         * @todo fix initial x burst - use max width
+         */
+        this.x = ((Math.random() * 2) - 1) * 100;
+        this.y = y;
+        this.slope = y / x;
+        this.opacity = 0;
+        this.speed = Math.max(Math.random() * maxSpeed, 1);
+      }
+    }
 
     Star.prototype.distanceTo = function (originX: number, originY: number) {
       return Math.sqrt(Math.pow(originX - this.x, 2) + Math.pow(originY - this.y, 2));
