@@ -116,7 +116,7 @@ class BigBangStarField extends PureComponent <Props> {
         /**
          * @todo fix initial x burst - use max width
          */
-        this.x = ((Math.random() * 2) - 1) * 100;
+        this.x = x;
         this.y = y;
         this.slope = y / x;
         this.opacity = 0;
@@ -150,9 +150,6 @@ class BigBangStarField extends PureComponent <Props> {
        */
       getRandomStar: function (minX: number, minY: number, maxX: number, maxY: number, maxSpeed: number) {
         let coords = StarFactory.getRandomPosition(minX, minY, maxX, maxY);
-        /// HMMMMMMMMMMMMM
-
-        // @ts-ignore
         return new Star(coords.x, coords.y, maxSpeed);
       },
 
