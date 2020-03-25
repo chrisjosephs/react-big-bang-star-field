@@ -95,6 +95,7 @@ class BigBangStarField extends PureComponent <Props> {
       size
     } = this.props
     const ctx = this.canvasRef.current!.getContext('2d');
+    ctx!.scale(scale!, scale!);
     const container = this.containerRef.current;
 
     /**
@@ -239,7 +240,7 @@ class BigBangStarField extends PureComponent <Props> {
       size['width'] = ctx!.width = width;
       // @ts-ignore
       size['height'] = ctx!.height = height;
-      ctx!.scale(scale!, scale!);
+      // ctx!.scale(scale!, scale!);
     };
 
     /**
