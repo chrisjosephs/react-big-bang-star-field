@@ -64,10 +64,6 @@ class BigBangStarField extends PureComponent <Props> {
   }
 
   render() {
-    this.containerSize.width = 2000;
-    this.containerSize.height = 2000;
-    console.log(this.containerSize);
-    console.log("didrender");
     const {
       numStars,
       maxStarSpeed,
