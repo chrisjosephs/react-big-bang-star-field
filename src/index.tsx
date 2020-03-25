@@ -88,15 +88,14 @@ class BigBangStarField extends PureComponent <Props> {
   }
 
   _draw() {
-
     if (!this.canvasRef) return;
     const {
-      scale,
       size
     } = this.props
     const ctx = this.canvasRef.current!.getContext('2d');
-    ctx!.scale(scale!, scale!);
 
+    console.log(this.size.width);
+    // const container = this.containerRef.current;
 
     /**
      *
@@ -184,9 +183,10 @@ class BigBangStarField extends PureComponent <Props> {
       constructor(width:number, height:number, scale:number) {
         this.starField = [];
         // @ts-ignore
-        size['width'] = ctx!.width = width / scale;
+        size['width'] =  width / scale ;
         // @ts-ignore
-        size['height'] = ctx!.height = height / scale;
+        size['height'] =  height / scale;
+        ctx!.scale(scale, scale);
       }
 
     }
@@ -251,7 +251,6 @@ class BigBangStarField extends PureComponent <Props> {
       var i;
       for (i = 0; i < numStars; i++) {
         try {
-          console.log(starField);
           this.starField.push(
             StarFactory.getRandomStar(-size['width'] / 2, -size['height'] / 2, size['width'], size['height'], this.maxStarSpeed)
           );
