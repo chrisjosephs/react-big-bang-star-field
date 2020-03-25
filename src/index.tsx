@@ -96,7 +96,7 @@ class BigBangStarField extends PureComponent <Props> {
     } = this.props
     const ctx = this.canvasRef.current!.getContext('2d');
     ctx!.scale(scale!, scale!);
-    const container = this.containerRef.current;
+
 
     /**
      *
@@ -235,46 +235,6 @@ class BigBangStarField extends PureComponent <Props> {
       }
     };
 
-    /**
-     * Makes sure that the canvas size fits the size of its container
-
-    StarField.prototype._adjustCanvasSize = function (width: number, height: number) {
-      // Set the canvas size to match the container ID (and cache values)
-      // @ts-ignore
-      size['width'] = ctx!.width = width;
-      // @ts-ignore
-      size['height'] = ctx!.height = height;
-    };
-     */
-    /**
-     * This listener compares the old container size with the new one, and caches
-     * the new values.
-     */
-    StarField.prototype._watchCanvasSize = function (elapsedTime: number) {
-      var timeSinceLastCheck = elapsedTime - (this.prevCheckTime || 0),
-        width,
-        height;
-
-      raf(this._watchCanvasSize.bind(this));
-
-      // Skip frames unless at least 333ms have passed since the last check
-      // (Cap to ~3fps)
-      if (timeSinceLastCheck >= 333 || !this.prevCheckTime) {
-        this.prevCheckTime = elapsedTime;
-        // @ts-ignore
-        width = container!.offsetWidth / scale;
-        // @ts-ignore
-        height = container!.offsetHeight / scale;
-        if (this.oldWidth !== width || this.oldHeight !== height) {
-          this.oldWidth = width;
-          this.oldHeight = height;
-          /*
-          this._adjustCanvasSize(width, height);
-          */
-        }
-      }
-    };
-
     StarField.prototype._tick = function () {
       this._updateStarField();
       this._renderStarField();
@@ -299,7 +259,6 @@ class BigBangStarField extends PureComponent <Props> {
         }
       }
       raf(this._tick.bind(this));
-      raf(this._watchCanvasSize.bind(this));
     };
 
     /**
