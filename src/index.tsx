@@ -9,7 +9,7 @@ export interface Props {
   maxStarSpeed: number,
   offsetX?: number,
   offsetY?: number,
-  scale?: number,
+  scale: number,
   style?: object,
   size: SizeMe,
   canvasRef?: object,
@@ -181,13 +181,12 @@ class BigBangStarField extends PureComponent <Props> {
       _tick: any;
       render: (numStars: number, maxStarSpeed: number) => void;
       _initScene: (this: any, numStars: number) => void;
-      width: number
-      constructor(width:number, height:number) {
+      constructor(width:number, height:number, scale:number) {
         this.starField = [];
         // @ts-ignore
-        size['width'] = ctx!.width = width;
+        size['width'] = ctx!.width = width / scale;
         // @ts-ignore
-        size['height'] = ctx!.height = height;
+        size['height'] = ctx!.height = height / scale;
       }
 
     }
@@ -238,16 +237,15 @@ class BigBangStarField extends PureComponent <Props> {
 
     /**
      * Makes sure that the canvas size fits the size of its container
-     */
+
     StarField.prototype._adjustCanvasSize = function (width: number, height: number) {
       // Set the canvas size to match the container ID (and cache values)
       // @ts-ignore
       size['width'] = ctx!.width = width;
       // @ts-ignore
       size['height'] = ctx!.height = height;
-      // ctx!.scale(scale!, scale!);
     };
-
+     */
     /**
      * This listener compares the old container size with the new one, and caches
      * the new values.
@@ -270,7 +268,9 @@ class BigBangStarField extends PureComponent <Props> {
         if (this.oldWidth !== width || this.oldHeight !== height) {
           this.oldWidth = width;
           this.oldHeight = height;
+          /*
           this._adjustCanvasSize(width, height);
+          */
         }
       }
     };
@@ -312,7 +312,7 @@ class BigBangStarField extends PureComponent <Props> {
       this.maxStarSpeed = maxStarSpeed;
       this._initScene(this.numStars);
     };
-    let starField = new StarField(this.props.size.width, this.props.size.height).render(this.props.numStars, this.props.maxStarSpeed);
+    let starField = new StarField(this.props.size.width, this.props.size.height, this.props.scale).render(this.props.numStars, this.props.maxStarSpeed);
     return (starField);
   }
 }
