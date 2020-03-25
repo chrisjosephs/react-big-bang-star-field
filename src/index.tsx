@@ -167,7 +167,7 @@ class BigBangStarField extends PureComponent <Props> {
         };
       }
     };
-    class StarField{
+    class StarField {
       _updateStarField: () => void;
       _renderStarField: () => void;
       maxStarSpeed: number;
@@ -181,8 +181,13 @@ class BigBangStarField extends PureComponent <Props> {
       _tick: any;
       render: (numStars: number, maxStarSpeed: number) => void;
       _initScene: (this: any, numStars: number) => void;
-      constructor() {
+      width: number
+      constructor(width:number, height:number) {
         this.starField = [];
+        // @ts-ignore
+        size['width'] = ctx!.width = width;
+        // @ts-ignore
+        size['height'] = ctx!.height = height;
       }
 
     }
@@ -307,7 +312,7 @@ class BigBangStarField extends PureComponent <Props> {
       this.maxStarSpeed = maxStarSpeed;
       this._initScene(this.numStars);
     };
-    let starField = new StarField().render(this.props.numStars, this.props.maxStarSpeed);
+    let starField = new StarField(this.props.size.width, this.props.size.height).render(this.props.numStars, this.props.maxStarSpeed);
     return (starField);
   }
 }
