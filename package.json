@@ -1,6 +1,6 @@
 {
   "name": "react-big-bang-star-field",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Big Bang Star Field Canvas Animation",
   "author": "chrisjosephs",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build"
   },
-  "dependencies": { 
+  "dependencies": {
     "raf": "^3.4.1",
     "react-resize-detector": "^4.2.1",
     "react-sizeme": "^2.6.12"
