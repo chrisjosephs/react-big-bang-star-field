@@ -7,6 +7,7 @@ import sizeMe from 'react-sizeme';
 export interface Props {
   numStars: number,
   maxStarSpeed: number,
+  starOpacity?: number,
   offsetX?: number,
   offsetY?: number,
   scale: number,
@@ -14,6 +15,7 @@ export interface Props {
   size: SizeMe,
   canvasSize: SizeMe,
   canvasRef?: object,
+  backgroundImage?: string
 }
 
 export interface SizeMe {
@@ -74,12 +76,10 @@ class BigBangStarField extends PureComponent <Props> {
       ...rest
     } = this.props
     let div = <>
-      <div className={'fullScreen'}
+      <div className={'BigBangStarFieldContainer'}
            ref={this.containerRef}
            style={{
              overflow: 'hidden',
-             backgroundImage: `url(${'/example/src/piqsels.com-id-fvkta.jpg'})`,
-             backgroundSize: 'cover',
              ...style
            }}
            {...rest}
