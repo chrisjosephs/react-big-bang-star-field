@@ -16,7 +16,7 @@ npm install --save react-big-bang-star-field
 
 Check out the [demo](https://chrisjosephs.github.io/react-big-bang-star-field/).
 
-Example includes background image div
+Demo includes background image div
 
 ```tsx
 import React, { Component } from 'react'
