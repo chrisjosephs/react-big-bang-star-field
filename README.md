@@ -16,6 +16,8 @@ npm install --save react-big-bang-star-field
 
 Check out the [demo](https://chrisjosephs.github.io/react-big-bang-star-field/).
 
+Example includes background image div
+
 ```tsx
 import React, { Component } from 'react'
 
@@ -49,7 +51,7 @@ class Example extends Component {
 | `size`          | number           | width: x, height: y                  | Size (determined by sizeMe) |
 | `...`           | ...              | undefined                            | Any other props are applied to the root canvas element. |
 
-Note that the canvas size will automatically be inferred based on available space via [react-sizeme](https://github.com/ctrlplusb/react-sizeme), so it should be really easy to use this component as a fullscreen background as in the [demo](https://chrisjosephs.github.io/react-big-bang-starfield/)).
+Note that the canvas size will automatically be inferred based on available space via [react-sizeme](https://github.com/ctrlplusb/react-sizeme), so it should be really easy to use this component as a fullscreen background as in the [demo](https://chrisjosephs.github.io/react-big-bang-star-field/)).
 
 ## Related
 - [zembrzuski js starfield](https://codepen.io/zembrzuski/pen/zRzMab) - Canvas based js starfield codepen

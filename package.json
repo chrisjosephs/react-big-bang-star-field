@@ -21,9 +21,7 @@
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build"
   },
-  "dependencies": {
-    "@types/react-resize-detector": "^4.2.0",
-    "lodash": "^4.17.15",
+  "dependencies": { 
     "raf": "^3.4.1",
     "react-resize-detector": "^4.2.1",
     "react-sizeme": "^2.6.12"
