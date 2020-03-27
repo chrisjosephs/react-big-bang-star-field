@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {createRef, PureComponent} from "react";
 import * as PropTypes from "prop-types";
+
 const raf = require('raf');
 import sizeMe from 'react-sizeme';
 
@@ -40,8 +41,9 @@ class BigBangStarField extends PureComponent <Props> {
     this.canvasSize = JSON.parse(JSON.stringify(this.containerSize))
     this.canvasSize.width = (props.size.width / props.scale);
     this.canvasSize.height = (props.size.height / props.scale);
-  ;
-}
+    ;
+  }
+
   static propTypes = {
     numStars: PropTypes.number,
     maxStarSpeed: PropTypes.number,
@@ -49,7 +51,7 @@ class BigBangStarField extends PureComponent <Props> {
     offsetY: PropTypes.number,
     scale: PropTypes.number,
     style: PropTypes.object,
-    size: PropTypes.number,
+    size: PropTypes.object,
     canvasRef: PropTypes.object,
     canvasSize: PropTypes.number
   }
@@ -98,7 +100,7 @@ class BigBangStarField extends PureComponent <Props> {
   _draw() {
     if (!this.canvasRef) return;
     const ctx = this.canvasRef.current!.getContext('2d');
-    // const container = this.containerRef.current;
+    const container = this.containerRef.current;
 
     /**
      *
@@ -116,10 +118,11 @@ class BigBangStarField extends PureComponent <Props> {
       maxSpeed: number;
       slope: number;
       opacity: number;
-      speed:number;
+      speed: number;
       distanceTo: (originX: number, originY: number) => number;
       resetPosition: (_x: number, _y: number, _maxSpeed: number) => Star;
-      constructor(x:number, y:number, maxSpeed:number){
+
+      constructor(x: number, y: number, maxSpeed: number) {
         this.x = x;
         this.y = y;
         this.slope = y / x;
@@ -175,6 +178,7 @@ class BigBangStarField extends PureComponent <Props> {
         };
       }
     };
+
     class StarField {
       _updateStarField: () => void;
       _renderStarField: () => void;
@@ -185,9 +189,17 @@ class BigBangStarField extends PureComponent <Props> {
       _tick: any;
       render: (numStars: number, maxStarSpeed: number) => void;
       _initScene: (this: any, numStars: number) => void;
+      _adjustCanvasSize: (width: number, height: number) => void;
+      _watchCanvasSize: (elapsedTime: number) => void;
+      prevCheckTime: number;
+      oldWidth: number;
+      oldHeight: number;
+      scale: number;
+
       constructor(canvasSize: SizeMe, scale: number) {
         this.canvasSize = canvasSize;
         this.starField = [];
+        this.scale = scale;
         ctx!.scale(scale, scale);
       }
     }
@@ -235,7 +247,46 @@ class BigBangStarField extends PureComponent <Props> {
           1, 1);
       }
     };
+    /**
+     * Makes sure that the canvas size fits the size of its container
+     */
+    StarField.prototype._adjustCanvasSize = function (width: number, height: number) {
+      // Set the canvas size to match the container ID (and cache values)
+      // @ts-ignore
+      console.log(this.scale);
+      // @ts-ignore
+      this.canvasSize['width'] = width / this.scale;
+      // @ts-ignore
+      this.canvasSize['height'] = height / this.scale;
+      ctx!.scale(this.scale, this.scale);
+    };
 
+    /**
+     * This listener compares the old container size with the new one, and caches
+     * the new values.
+     */
+    StarField.prototype._watchCanvasSize = function (elapsedTime: number) {
+      var timeSinceLastCheck = elapsedTime - (this.prevCheckTime || 0),
+        width,
+        height;
+
+      raf(this._watchCanvasSize.bind(this));
+
+      // Skip frames unless at least 333ms have passed since the last check
+      // (Cap to ~3fps)
+      if (timeSinceLastCheck >= 333 || !this.prevCheckTime) {
+        this.prevCheckTime = elapsedTime;
+        if (container != null) {
+          width = container.offsetWidth;
+          height = container.offsetHeight;
+          if (this.oldWidth !== width || this.oldHeight !== height) {
+            this.oldWidth = width;
+            this.oldHeight = height;
+            this._adjustCanvasSize(width, height);
+          }
+        }
+      }
+    };
     StarField.prototype._tick = function () {
       this._updateStarField();
       this._renderStarField();
@@ -259,6 +310,7 @@ class BigBangStarField extends PureComponent <Props> {
         }
       }
       raf(this._tick.bind(this));
+      raf(this._watchCanvasSize.bind(this));
     };
 
     /**
@@ -277,4 +329,4 @@ class BigBangStarField extends PureComponent <Props> {
 }
 
 // @ts-ignore
-export default sizeMe({ monitorHeight: true })(BigBangStarField);
+export default sizeMe({monitorHeight: true})(BigBangStarField);
