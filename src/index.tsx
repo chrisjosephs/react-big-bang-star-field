@@ -96,6 +96,7 @@ class BigBangStarField extends PureComponent <Props> {
     const ctx = this.canvasRef.current!.getContext('2d');
     const container = this.containerRef.current;
     ctx!.scale(this.scale, this.scale);
+
     /**
      *
      * @param x {number} x coordinate of the star
@@ -248,7 +249,7 @@ class BigBangStarField extends PureComponent <Props> {
          */
         ctx!.fillStyle = "rgba(217, 130, 244, " + star.opacity + ")";
         ctx!.beginPath();
-        ctx!.arc(star.x +  this.canvasSize.width / 2, star.y + this.canvasSize.height / 2,0.5, 0, 2*Math.PI, true);
+        ctx!.arc(star.x + this.canvasSize.width / 2, star.y + this.canvasSize.height / 2, 0.5, 0, 2 * Math.PI, true);
         ctx!.fill();
         ctx!.closePath();
       }
@@ -307,7 +308,7 @@ class BigBangStarField extends PureComponent <Props> {
       for (i = 0; i < numStars; i++) {
         try {
           this.starField.push(
-            StarFactory.getRandomStar(-this.canvasSize.width/2, -this.canvasSize.height/2, this.canvasSize.width, this.canvasSize.height, this.maxStarSpeed)
+            StarFactory.getRandomStar(-this.canvasSize.width / 2, -this.canvasSize.height / 2, this.canvasSize.width, this.canvasSize.height, this.maxStarSpeed)
           );
         } catch {
         }
