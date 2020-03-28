@@ -35,7 +35,7 @@ class BigBangStarField extends PureComponent <Props> {
     this.containerRef = createRef();
     this.canvasRef = createRef();
     this.containerSize = props.size;
-    ;
+    console.log(this.containerSize);
   }
 
   static propTypes = {
@@ -172,6 +172,11 @@ class BigBangStarField extends PureComponent <Props> {
       }
     };
 
+    /**
+     * StarField
+     * @param {sizeMe} containerSize size of the container
+     * @param {scale} number upscale canvas drawing
+     */
     class StarField {
       _updateStarField: () => void;
       _renderStarField: () => void;
@@ -216,12 +221,12 @@ class BigBangStarField extends PureComponent <Props> {
         star.opacity += star.speed / 150;
 
 
-        if ((Math.abs(star.x) > this.canvasSize['width'] / 2) ||
-          (Math.abs(star.y) > this.canvasSize['height'] / 2)) {
+        if ((Math.abs(star.x) > this.canvasSize.width / 2) ||
+          (Math.abs(star.y) > this.canvasSize.height / 2)) {
 
           randomLoc = StarFactory.getRandomPosition(
-            -this.canvasSize['width'] / 10, -this.canvasSize['height'] / 10,
-            this.canvasSize['width'] / 5, this.canvasSize['height'] / 5
+            -this.canvasSize.width / 10, -this.canvasSize.height / 10,
+            this.canvasSize.width / 5, this.canvasSize.height / 5
           );
           star.resetPosition(randomLoc.x, randomLoc.y, this.maxStarSpeed);
         }
@@ -233,15 +238,20 @@ class BigBangStarField extends PureComponent <Props> {
       var i,
         star;
       ctx!.fillStyle = "rgba(255, 0, 0, 0)";
-      ctx!.clearRect(0, 0, this.canvasSize['width'], this.canvasSize['height']);
+      ctx!.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
       for (i = 0; i < this.numStars; i++) {
         star = this.starField[i];
-
+        /**
+         * todo: ctx!.fillStyle = star.color
+         */
         ctx!.fillStyle = "rgba(217, 130, 244, " + star.opacity + ")";
-        ctx!.fillRect(
-          star.x + this.canvasSize['width'] / 2,
-          star.y + this.canvasSize['height'] / 2,
-          1, 1);
+        ctx!.beginPath();
+        ctx!.arc(star.x +  this.canvasSize.width / 2, star.y + this.canvasSize.height / 2,0.5, 0, 2*Math.PI, true);
+        ctx!.fill();
+        ctx!.closePath();
+        ctx!.fillStyle = 'white';
+        ctx!.fillText("dx: " + -2, 30, 40);
+        ctx!.fillText("dy: " + 0, 30, 50);
       }
     };
     /**
@@ -249,8 +259,12 @@ class BigBangStarField extends PureComponent <Props> {
      */
     StarField.prototype._adjustCanvasSize = function (width: number, height: number) {
       // Set the canvas size to match the container ID (and cache values)
-      this.canvasSize['width'] = width / this.scale;
-      this.canvasSize['height'] = height / this.scale;
+      this.containerSize.width = width;
+      this.containerSize.height = height;
+      this.canvasSize.width = width / this.scale;
+      this.canvasSize.height = height / this.scale;
+      ctx!.scale(4, 4);
+
     };
 
     /**
@@ -273,6 +287,7 @@ class BigBangStarField extends PureComponent <Props> {
             this.oldWidth = width;
             this.oldHeight = height;
             this._adjustCanvasSize(width, height);
+            this._updateStarField();
           }
         }
       }
