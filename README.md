@@ -61,4 +61,7 @@ Note that the canvas size will automatically be inferred based on available spac
 
 MIT © [chrisjosephs](https://github.com/chrisjosephs)
 
+Background stars image in example from [piqsels](https://www.piqsels.com/) released under public domain license
+
 This module was bootstrapped with [create-react-library](https://github.com/transitive-bullshit/create-react-library).
+
