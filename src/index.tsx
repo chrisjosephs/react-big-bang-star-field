@@ -29,6 +29,7 @@ class BigBangStarField extends PureComponent <Props> {
   containerRef: React.RefObject<HTMLDivElement>;
   canvasRef: React.RefObject<HTMLCanvasElement>;
   private readonly containerSize: SizeMe;
+  private scale: number;
 
   constructor(props: Props) {
     super(props);
@@ -94,7 +95,7 @@ class BigBangStarField extends PureComponent <Props> {
     if (!this.canvasRef) return;
     const ctx = this.canvasRef.current!.getContext('2d');
     const container = this.containerRef.current;
-
+    ctx!.scale(this.scale, this.scale);
     /**
      *
      * @param x {number} x coordinate of the star
@@ -198,11 +199,11 @@ class BigBangStarField extends PureComponent <Props> {
       constructor(containerSize: SizeMe, scale: number) {
         this.containerSize = containerSize;
         this.canvasSize = JSON.parse(JSON.stringify(containerSize));
-        this.canvasSize.width = containerSize.width / scale
+        this.canvasSize.width = containerSize.width / scale;
         this.canvasSize.height = containerSize.height / scale;
         this.starField = [];
         this.scale = scale;
-        ctx!.scale(scale, scale);
+
       }
     }
 
@@ -243,15 +244,13 @@ class BigBangStarField extends PureComponent <Props> {
         star = this.starField[i];
         /**
          * todo: ctx!.fillStyle = star.color
+         * ctx.size - random (for radius)
          */
         ctx!.fillStyle = "rgba(217, 130, 244, " + star.opacity + ")";
         ctx!.beginPath();
         ctx!.arc(star.x +  this.canvasSize.width / 2, star.y + this.canvasSize.height / 2,0.5, 0, 2*Math.PI, true);
         ctx!.fill();
         ctx!.closePath();
-        ctx!.fillStyle = 'white';
-        ctx!.fillText("dx: " + -2, 30, 40);
-        ctx!.fillText("dy: " + 0, 30, 50);
       }
     };
     /**
@@ -296,7 +295,6 @@ class BigBangStarField extends PureComponent <Props> {
       this._updateStarField();
       this._renderStarField();
       raf(this._tick.bind(this));
-
     }
 
     /**
@@ -309,7 +307,7 @@ class BigBangStarField extends PureComponent <Props> {
       for (i = 0; i < numStars; i++) {
         try {
           this.starField.push(
-            StarFactory.getRandomStar(-this.containerSize['width'] / 2, -this.containerSize['height'] / 2, this.containerSize['width'], this.containerSize['height'], this.maxStarSpeed)
+            StarFactory.getRandomStar(-this.canvasSize.width/2, -this.canvasSize.height/2, this.canvasSize.width, this.canvasSize.height, this.maxStarSpeed)
           );
         } catch {
         }
