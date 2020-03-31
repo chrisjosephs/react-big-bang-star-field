@@ -36,7 +36,6 @@ class BigBangStarField extends PureComponent <Props> {
     this.containerRef = createRef();
     this.canvasRef = createRef();
     this.containerSize = props.size;
-    console.log(this.containerSize);
   }
 
   static propTypes = {
@@ -243,7 +242,6 @@ class BigBangStarField extends PureComponent <Props> {
         star.y = star.slope * star.x;
         let closenessx = Math.abs(((1 / this.canvasSize.width) * star.x));
         star.size = 1+ closenessx * star.grows;
-        console.log(star.size);
         star.opacity += star.speed / 150;
 
 
@@ -271,7 +269,7 @@ class BigBangStarField extends PureComponent <Props> {
          * todo: ctx!.fillStyle = star.color
          * ctx.size - random (for radius)
          */
-        ctx!.fillStyle = "rgba(217, 130, 244, " + star.opacity + ")";
+        ctx!.fillStyle = "rgba(217, 150, 244, " + star.opacity + ")";
         ctx!.beginPath();
         ctx!.arc(star.x + this.canvasSize.width / 2, star.y + this.canvasSize.height / 2, star.size / 2, 0, 2 * Math.PI, true);
         ctx!.fill();
