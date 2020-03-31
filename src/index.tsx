@@ -104,6 +104,7 @@ class BigBangStarField extends PureComponent <Props> {
      * @param maxSpeed {number} maxSpeed
      * opacity {number} opacity
      * speed {number} actual speed
+     * growth {number} how much the star grows as it gets closer to the camera
      * @constructor
      * @this Star
      */
@@ -114,12 +115,32 @@ class BigBangStarField extends PureComponent <Props> {
       slope: number;
       opacity: number;
       speed: number;
+      grows: number;
+      size: number;
       distanceTo: (originX: number, originY: number) => number;
       resetPosition: (_x: number, _y: number, _maxSpeed: number) => Star;
 
       constructor(x: number, y: number, maxSpeed: number) {
         this.x = x;
         this.y = y;
+        this.size = 1;
+        // @ts-ignore
+        function randomWeight(){
+          let r = 1;
+          let n: number=Math.floor(Math.random()*100)
+          if (n<80) {
+            r = 1
+          }
+          else if (n<90) {
+            r = 3
+          }
+          else if (n<95) {
+            r = 5;
+          }
+          return r;
+        }
+        // we only want ones to grow that are going to hit the camera
+        this.grows = randomWeight();
         this.slope = y / x;
         this.opacity = 0;
         this.speed = Math.max(Math.random() * maxSpeed, 1);
@@ -196,6 +217,7 @@ class BigBangStarField extends PureComponent <Props> {
       oldWidth: number;
       oldHeight: number;
       scale: number;
+      size: number;
 
       constructor(containerSize: SizeMe, scale: number) {
         this.containerSize = containerSize;
@@ -219,7 +241,9 @@ class BigBangStarField extends PureComponent <Props> {
         increment = Math.min(star.speed, Math.abs(star.speed / star.slope));
         star.x += (star.x > 0) ? increment : -increment;
         star.y = star.slope * star.x;
-
+        let closenessx = Math.abs(((1 / this.canvasSize.width) * star.x));
+        star.size = 1+ closenessx * star.grows;
+        console.log(star.size);
         star.opacity += star.speed / 150;
 
 
@@ -249,7 +273,7 @@ class BigBangStarField extends PureComponent <Props> {
          */
         ctx!.fillStyle = "rgba(217, 130, 244, " + star.opacity + ")";
         ctx!.beginPath();
-        ctx!.arc(star.x + this.canvasSize.width / 2, star.y + this.canvasSize.height / 2, 0.5, 0, 2 * Math.PI, true);
+        ctx!.arc(star.x + this.canvasSize.width / 2, star.y + this.canvasSize.height / 2, star.size / 2, 0, 2 * Math.PI, true);
         ctx!.fill();
         ctx!.closePath();
       }
