@@ -231,7 +231,9 @@ class BigBangStarField extends PureComponent <Props> {
       var i,
         star;
       ctx!.fillStyle = "rgba(255, 0, 0, 0)";
-      ctx!.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
+      const width = this.canvasSize.width;
+      const height = this.canvasSize.height;
+      ctx!.clearRect(0, 0, width, height);
       for (i = 0; i < this.numStars; i++) {
         star = this.starField[i];
         /**
@@ -240,7 +242,7 @@ class BigBangStarField extends PureComponent <Props> {
          */
         ctx!.fillStyle = "rgba("+ this.starColor + ", " + star.opacity + ")";
         ctx!.beginPath();
-        ctx!.arc(star.x + this.canvasSize.width / 2, star.y + this.canvasSize.height / 2, 0.5, 0, 2 * Math.PI, true);
+        ctx!.arc(star.x + width / 2, star.y + height / 2, 0.5, 0, 2 * Math.PI, true);
         ctx!.fill();
         ctx!.closePath();
       }
