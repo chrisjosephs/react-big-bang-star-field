@@ -103,10 +103,12 @@ class BigBangStarField extends PureComponent <Props> {
       slope: number;
       opacity: number;
       speed: number;
+      width: number;
       distanceTo: (originX: number, originY: number) => number;
       resetPosition: (_x: number, _y: number, _maxSpeed: number) => Star;
 
       constructor(x: number, y: number, maxSpeed: number) {
+        this.width = 0.5;
         this.x = x;
         this.y = y;
         this.slope = y / x;
@@ -212,7 +214,9 @@ class BigBangStarField extends PureComponent <Props> {
         star.y = star.slope * star.x;
 
         star.opacity += star.speed / 150;
+        star.opacity += star.speed / 150;
 
+        star.width = 0.5 + ((star.distanceTo(0,0)) * 0.002);
 
         if ((Math.abs(star.x) > this.canvasSize.width / 2) ||
           (Math.abs(star.y) > this.canvasSize.height / 2)) {
@@ -242,7 +246,7 @@ class BigBangStarField extends PureComponent <Props> {
          */
         ctx!.fillStyle = "rgba("+ this.starColor + ", " + star.opacity + ")";
         ctx!.beginPath();
-        ctx!.arc(star.x + width / 2, star.y + height / 2, 0.5, 0, 2 * Math.PI, true);
+        ctx!.arc(star.x + width / 2, star.y + height / 2, star.width, 0, 2 * Math.PI, true);
         ctx!.fill();
         ctx!.closePath();
       }
