@@ -100,6 +100,7 @@ class BigBangStarField extends PureComponent <Props> {
      *
      * @param x {number} x coordinate of the star
      * @param y {number} y coordinate of the star
+     * @param z {number} z tracer length of star
      * @param maxSpeed {number} maxSpeed
      * opacity {number} opacity
      * speed {number} actual speed
@@ -110,6 +111,7 @@ class BigBangStarField extends PureComponent <Props> {
     class Star {
       x: number;
       y: number;
+      z:  number;
       maxSpeed: number;
       slope: number;
       opacity: number;
@@ -122,6 +124,7 @@ class BigBangStarField extends PureComponent <Props> {
       constructor(x: number, y: number, maxSpeed: number) {
         this.x = x;
         this.y = y;
+        this.z = 0;
         this.size = 1;
         // @ts-ignore
         function randomWeight(){
@@ -131,10 +134,10 @@ class BigBangStarField extends PureComponent <Props> {
             r = 1
           }
           else if (n<90) {
-            r = 3
+            r = 1.5
           }
-          else if (n<95) {
-            r = 5;
+          else if (n<97) {
+            r = 3;
           }
           return r;
         }
@@ -234,13 +237,15 @@ class BigBangStarField extends PureComponent <Props> {
         star,
         randomLoc,
         increment;
-
+      var width = this.canvasSize.width;
       for (i = 0; i < this.numStars; i++) {
         star = this.starField[i];
         increment = Math.min(star.speed, Math.abs(star.speed / star.slope));
+        star.origX = star.x;
+        star.origY = star.y;
         star.x += (star.x > 0) ? increment : -increment;
         star.y = star.slope * star.x;
-        let closenessx = Math.abs(((1 / this.canvasSize.width) * star.x));
+        let closenessx = Math.abs(((1 / width) * star.x));
         star.size = 1+ closenessx * star.grows;
         star.opacity += star.speed / 150;
 
@@ -261,8 +266,9 @@ class BigBangStarField extends PureComponent <Props> {
     StarField.prototype._renderStarField = function () {
       var i,
         star;
-      ctx!.fillStyle = "rgba(255, 0, 0, 0)";
-      ctx!.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
+      var width = this.canvasSize.width;
+      var height = this.canvasSize.height;
+      ctx!.clearRect(0, 0, width, height);
       for (i = 0; i < this.numStars; i++) {
         star = this.starField[i];
         /**
@@ -271,8 +277,10 @@ class BigBangStarField extends PureComponent <Props> {
          */
         ctx!.fillStyle = "rgba(217, 150, 244, " + star.opacity + ")";
         ctx!.beginPath();
-        ctx!.arc(star.x + this.canvasSize.width / 2, star.y + this.canvasSize.height / 2, star.size / 2, 0, 2 * Math.PI, true);
-        ctx!.fill();
+        ctx!.moveTo(star.x  + width / 2, star.y + height / 2);
+        ctx!.lineTo(star.origX + width / 2, star.origY + height / 2 );
+        ctx!.strokeStyle = "rgba(255, 255, 255, " + star.opacity + ")";
+        ctx!.stroke()
         ctx!.closePath();
       }
     };
@@ -285,7 +293,7 @@ class BigBangStarField extends PureComponent <Props> {
       this.containerSize.height = height;
       this.canvasSize.width = width / this.scale;
       this.canvasSize.height = height / this.scale;
-      ctx!.scale(4, 4);
+      ctx!.scale(this.scale, this.scale);
 
     };
 
@@ -315,7 +323,7 @@ class BigBangStarField extends PureComponent <Props> {
       }
     };
     StarField.prototype._tick = function () {
-      this._updateStarField();
+      this._updateStarField(); -1
       this._renderStarField();
       raf(this._tick.bind(this));
     }
