@@ -240,13 +240,13 @@ class BigBangStarField extends PureComponent <Props> {
       ctx!.clearRect(0, 0, width, height);
       for (i = 0; i < this.numStars; i++) {
         star = this.starField[i];
-        /**
-         * todo: ctx!.fillStyle = star.color
-         * ctx.size - random (for radius)
-         */
         ctx!.fillStyle = "rgba("+ this.starColor + ", " + star.opacity + ")";
         ctx!.beginPath();
         ctx!.arc(star.x + width / 2, star.y + height / 2, star.width, 0, 2 * Math.PI, true);
+        ctx!.shadowColor = '#00ff00';
+        ctx!.shadowBlur = 20;
+        ctx!.shadowOffsetX = 0;
+        ctx!.shadowOffsetY = 0;
         ctx!.fill();
         ctx!.closePath();
       }
