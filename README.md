@@ -50,7 +50,7 @@ class Example extends Component {
 | `maxStarSpeed`  | number           | 1                                    | Maximum star speed. |
 | `scale`         | number           | 4.0                                  | Scaling factor for canvas  |
 | `size`          | number           | width: x, height: y                  | Size (determined by sizeMe) |
-| `starColor`           | number             | 217, 160, 244                           | Color of stars produced |
+| `starColor`     | number           | 217, 160, 244                        | Color of stars produced |
 | `...`           | ...              | undefined                            | Any other props are applied to the root canvas element. |
 
 Note that the canvas size will automatically be inferred based on available space via [react-sizeme](https://github.com/ctrlplusb/react-sizeme), so it should be really easy to use this component as a fullscreen background as in the [demo](https://chrisjosephs.github.io/react-big-bang-star-field/)).
