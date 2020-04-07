@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {createRef, PureComponent} from "react";
-import * as PropTypes from "prop-types";
 
 const raf = require('raf');
 import sizeMe from 'react-sizeme';
@@ -15,7 +14,8 @@ export interface Props {
   style?: object,
   size: SizeMe,
   canvasRef?: object,
-  backgroundImage?: string
+  backgroundImage?: string,
+  starColor: string
 }
 
 export interface SizeMe {
@@ -36,26 +36,14 @@ class BigBangStarField extends PureComponent <Props> {
     this.containerRef = createRef();
     this.canvasRef = createRef();
     this.containerSize = props.size;
-    console.log(this.containerSize);
-  }
-
-  static propTypes = {
-    numStars: PropTypes.number,
-    maxStarSpeed: PropTypes.number,
-    offsetX: PropTypes.number,
-    offsetY: PropTypes.number,
-    scale: PropTypes.number,
-    style: PropTypes.object,
-    size: PropTypes.object,
-    canvasRef: PropTypes.object,
-    canvasSize: PropTypes.number
   }
 
   static defaultProps = {
     numStars: 333,
     maxStarSpeed: 1,
     scale: 4,
-    style: {}
+    style: {},
+    starColor: "217, 130, 244"
   };
 
   componentDidMount() {
@@ -67,8 +55,9 @@ class BigBangStarField extends PureComponent <Props> {
       numStars,
       maxStarSpeed,
       size,
-      style,
       scale,
+      style,
+      starColor,
       ...rest
     } = this.props
     let div = <>
@@ -196,14 +185,16 @@ class BigBangStarField extends PureComponent <Props> {
       oldWidth: number;
       oldHeight: number;
       scale: number;
+      starColor: string;
 
-      constructor(containerSize: SizeMe, scale: number) {
+      constructor(containerSize: SizeMe, scale: number, starColor: string) {
         this.containerSize = containerSize;
         this.canvasSize = JSON.parse(JSON.stringify(containerSize));
         this.canvasSize.width = containerSize.width / scale;
         this.canvasSize.height = containerSize.height / scale;
         this.starField = [];
         this.scale = scale;
+        this.starColor = starColor;
 
       }
     }
@@ -247,7 +238,7 @@ class BigBangStarField extends PureComponent <Props> {
          * todo: ctx!.fillStyle = star.color
          * ctx.size - random (for radius)
          */
-        ctx!.fillStyle = "rgba(217, 130, 244, " + star.opacity + ")";
+        ctx!.fillStyle = "rgba("+ this.starColor + ", " + star.opacity + ")";
         ctx!.beginPath();
         ctx!.arc(star.x + this.canvasSize.width / 2, star.y + this.canvasSize.height / 2, 0.5, 0, 2 * Math.PI, true);
         ctx!.fill();
@@ -327,7 +318,7 @@ class BigBangStarField extends PureComponent <Props> {
       this.maxStarSpeed = maxStarSpeed;
       this._initScene(this.numStars);
     };
-    let starField = new StarField(this.containerSize, this.props.scale).render(this.props.numStars, this.props.maxStarSpeed);
+    let starField = new StarField(this.containerSize, this.props.scale, this.props.starColor).render(this.props.numStars, this.props.maxStarSpeed);
     return (starField);
   }
 }

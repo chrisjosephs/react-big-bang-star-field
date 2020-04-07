@@ -45,6 +45,7 @@ export default class App extends Component {
           numStars={666}
           maxStarSpeed={1}
           scale={4}
+          starColor={"217, 160, 244"}
           style={{
             position: 'absolute',
             zIndex: 1,
