@@ -254,7 +254,7 @@ class BigBangStarField extends PureComponent <Props> {
       this.containerSize.height = height;
       this.canvasSize.width = width / this.scale;
       this.canvasSize.height = height / this.scale;
-      ctx!.scale(4, 4);
+      ctx!.scale(this.scale, this.scale);
 
     };
 
