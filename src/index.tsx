@@ -190,6 +190,7 @@ class BigBangStarField extends PureComponent <Props> {
       oldHeight: number;
       scale: number;
       starColor: string;
+      rafId: any;
 
       constructor(containerSize: SizeMe, scale: number, starColor: string) {
         this.containerSize = containerSize;
@@ -267,7 +268,9 @@ class BigBangStarField extends PureComponent <Props> {
         this.canvasSize.width = width / this.scale;
         this.canvasSize.height = height / this.scale;
         ctx!.scale(this.scale, this.scale);
-        this._updateStarField();
+        cancelAnimationFrame(this.rafId)
+        this.starField = [];
+        this.render(this.numStars, this.maxStarSpeed);
       }
     };
 
@@ -282,15 +285,15 @@ class BigBangStarField extends PureComponent <Props> {
           let width = container.offsetWidth;
           let height = container.offsetHeight;
           self._adjustCanvasSize(width, height)
-
         }
-      }, 33)
+      }, 330)
       window.addEventListener("resize", debouncedHandleResize);
     };
     StarField.prototype._tick = function () {
       this._updateStarField();
       this._renderStarField();
-      raf(this._tick.bind(this));
+      this.rafId = raf(this._tick.bind(this));
+
     }
 
     /**
