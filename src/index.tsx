@@ -188,6 +188,7 @@ class BigBangStarField extends PureComponent <Props> {
       oldHeight: number;
       scale: number;
       starColor: string;
+      timer_id: undefined;
 
       constructor(containerSize: SizeMe, scale: number, starColor: string) {
         this.containerSize = containerSize;
@@ -216,7 +217,7 @@ class BigBangStarField extends PureComponent <Props> {
         star.opacity += star.speed / 150;
         star.opacity += star.speed / 150;
 
-        star.width = 0.5 + ((star.distanceTo(0,0)) * 0.002);
+        star.width = 0.5 + ((star.distanceTo(0, 0)) * 0.002);
 
         if ((Math.abs(star.x) > this.canvasSize.width / 2) ||
           (Math.abs(star.y) > this.canvasSize.height / 2)) {
@@ -240,7 +241,7 @@ class BigBangStarField extends PureComponent <Props> {
       ctx!.clearRect(0, 0, width, height);
       for (i = 0; i < this.numStars; i++) {
         star = this.starField[i];
-        ctx!.fillStyle = "rgba("+ this.starColor + ", " + star.opacity + ")";
+        ctx!.fillStyle = "rgba(" + this.starColor + ", " + star.opacity + ")";
         ctx!.beginPath();
         ctx!.arc(star.x + width / 2, star.y + height / 2, star.width, 0, 2 * Math.PI, true);
         ctx!.shadowColor = '#00ff00';
@@ -261,6 +262,7 @@ class BigBangStarField extends PureComponent <Props> {
       this.canvasSize.width = width / this.scale;
       this.canvasSize.height = height / this.scale;
       ctx!.scale(this.scale, this.scale);
+      console.log(this.scale);
 
     };
 
@@ -268,26 +270,25 @@ class BigBangStarField extends PureComponent <Props> {
      * This listener compares the old container size with the new one, and caches
      * the new values.
      */
-    StarField.prototype._watchCanvasSize = function (elapsedTime: number) {
-      var timeSinceLastCheck = elapsedTime - (this.prevCheckTime || 0),
-        width,
+    StarField.prototype._watchCanvasSize = function () {
+      var width,
         height;
-      raf(this._watchCanvasSize.bind(this));
-      // Skip frames unless at least 333ms have passed since the last check
-      // (Cap to ~3fps)
-      if (timeSinceLastCheck >= 333 || !this.prevCheckTime) {
-        this.prevCheckTime = elapsedTime;
+      var self = this;
+      window.addEventListener("resize", function () {
+        // Skip frames unless at least 333ms have passed since the last check
+        // (Cap to ~3fps)
         if (container != null) {
           width = container.offsetWidth;
           height = container.offsetHeight;
-          if (this.oldWidth !== width || this.oldHeight !== height) {
-            this.oldWidth = width;
-            this.oldHeight = height;
-            this._adjustCanvasSize(width, height);
-            this._updateStarField();
+
+          if (self.oldWidth !== width || self.oldHeight !== height) {
+            self.oldWidth = width;
+            self.oldHeight = height;
+            self._adjustCanvasSize(width, height);
+            self._updateStarField();
           }
         }
-      }
+      });
     };
     StarField.prototype._tick = function () {
       this._updateStarField();
