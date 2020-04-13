@@ -3,6 +3,7 @@ import {createRef, PureComponent} from "react";
 
 const raf = require('raf');
 import sizeMe from 'react-sizeme';
+import {debounce} from "ts-debounce";
 
 export interface Props {
   numStars: number,
@@ -236,18 +237,20 @@ class BigBangStarField extends PureComponent <Props> {
       var i,
         star;
       ctx!.fillStyle = "rgba(255, 0, 0, 0)";
-      const width = this.canvasSize.width;
-      const height = this.canvasSize.height;
+      let width = this.canvasSize.width;
+      let height = this.canvasSize.height;
       ctx!.clearRect(0, 0, width, height);
       for (i = 0; i < this.numStars; i++) {
         star = this.starField[i];
         ctx!.fillStyle = "rgba(" + this.starColor + ", " + star.opacity + ")";
         ctx!.beginPath();
         ctx!.arc(star.x + width / 2, star.y + height / 2, star.width, 0, 2 * Math.PI, true);
-        ctx!.shadowColor = '#00ff00';
-        ctx!.shadowBlur = 20;
-        ctx!.shadowOffsetX = 0;
-        ctx!.shadowOffsetY = 0;
+        /** this is might expensive
+         ctx!.shadowColor = '#00ff00';
+         ctx!.shadowBlur = 20;
+         ctx!.shadowOffsetX = 0;
+         ctx!.shadowOffsetY = 0;
+         **/
         ctx!.fill();
         ctx!.closePath();
       }
@@ -256,14 +259,16 @@ class BigBangStarField extends PureComponent <Props> {
      * Makes sure that the canvas size fits the size of its container
      */
     StarField.prototype._adjustCanvasSize = function (width: number, height: number) {
-      // Set the canvas size to match the container ID (and cache values)
-      this.containerSize.width = width;
-      this.containerSize.height = height;
-      this.canvasSize.width = width / this.scale;
-      this.canvasSize.height = height / this.scale;
-      ctx!.scale(this.scale, this.scale);
-      console.log(this.scale);
-
+      if (this.oldWidth !== width || this.oldHeight !== height) {
+        this.oldWidth = width;
+        this.oldHeight = height;
+        this.containerSize.width = width;
+        this.containerSize.height = height;
+        this.canvasSize.width = width / this.scale;
+        this.canvasSize.height = height / this.scale;
+        ctx!.scale(this.scale, this.scale);
+        this._updateStarField();
+      }
     };
 
     /**
@@ -271,30 +276,15 @@ class BigBangStarField extends PureComponent <Props> {
      * the new values.
      */
     StarField.prototype._watchCanvasSize = function () {
-      var width,
-        height;
-      var resizeId: NodeJS.Timeout;
       var self = this;
-
-      window.addEventListener("resize", function () {
-        clearTimeout(resizeId);
-        resizeId = setTimeout(doneResizing, 33);
-        // Skip frames unless at least 333ms have passed since the last check
-        // (Cap to ~3fps)
-        function doneResizing() {
-          if (container != null) {
-            width = container.offsetWidth;
-            height = container.offsetHeight;
-
-            if (self.oldWidth !== width || self.oldHeight !== height) {
-              self.oldWidth = width;
-              self.oldHeight = height;
-              self._adjustCanvasSize(width, height);
-              self._updateStarField();
-            }
-          }
+      const debouncedHandleResize = debounce(function() {
+        if (container != null) {
+          let width = container.offsetWidth;
+          let height = container.offsetHeight;
+          self._adjustCanvasSize(width, height)
         }
-      });
+      }, 33)
+      window.addEventListener("resize", debouncedHandleResize);
     };
     StarField.prototype._tick = function () {
       this._updateStarField();
