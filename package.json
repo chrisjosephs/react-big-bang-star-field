@@ -24,7 +24,8 @@
   "dependencies": {
     "raf": "^3.4.1",
     "react-resize-detector": "^4.2.1",
-    "react-sizeme": "^2.6.12"
+    "react-sizeme": "^2.6.12",
+    "ts-debounce": "^2.0.1"
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",

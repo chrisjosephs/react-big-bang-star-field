@@ -276,12 +276,13 @@ class BigBangStarField extends PureComponent <Props> {
      * the new values.
      */
     StarField.prototype._watchCanvasSize = function () {
-      var self = this;
+      const self = this;
       const debouncedHandleResize = debounce(function() {
         if (container != null) {
           let width = container.offsetWidth;
           let height = container.offsetHeight;
           self._adjustCanvasSize(width, height)
+
         }
       }, 33)
       window.addEventListener("resize", debouncedHandleResize);
