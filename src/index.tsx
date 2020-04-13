@@ -198,7 +198,7 @@ class BigBangStarField extends PureComponent <Props> {
         this.starField = [];
         this.scale = scale;
         this.starColor = starColor;
-
+        ctx!.scale(this.scale, this.scale);
       }
     }
 
