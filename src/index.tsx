@@ -28,9 +28,8 @@ class BigBangStarField extends PureComponent <Props> {
 
   containerRef: React.RefObject<HTMLDivElement>;
   canvasRef: React.RefObject<HTMLCanvasElement>;
-  private scale: number;
   state: { containerWidth: number; containerHeight: number }
-
+  starField: object;
   constructor(props: Props) {
     super(props);
     this.containerRef = createRef();
@@ -50,7 +49,6 @@ class BigBangStarField extends PureComponent <Props> {
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
-    this._draw()
   }
 
   componentWillUnmount() {
@@ -88,7 +86,6 @@ class BigBangStarField extends PureComponent <Props> {
   _draw() {
     if (!this.canvasRef) return;
     const ctx = this.canvasRef.current!.getContext('2d');
-    ctx!.scale(this.scale, this.scale);
 
     /**
      *
@@ -194,11 +191,10 @@ class BigBangStarField extends PureComponent <Props> {
       canvasWidth: number;
       canvasHeight: number;
       state: any;
-
+      called: boolean;
       constructor(state: any, scale: number, starColor: string) {
         this.canvasWidth = state.containerWidth / scale;
         this.canvasHeight = state.containerHeight / scale;
-        console.log(state.containerHeight);
         this.starField = [];
         this.scale = scale;
         this.starColor = starColor;
@@ -280,7 +276,6 @@ class BigBangStarField extends PureComponent <Props> {
         }
       }
       raf(this._tick.bind(this));
-      raf(this._watchCanvasSize.bind(this));
     };
 
     /**
@@ -293,9 +288,11 @@ class BigBangStarField extends PureComponent <Props> {
       this.maxStarSpeed = maxStarSpeed;
       this._initScene(this.numStars);
     };
+
     let starField = new StarField(this.state, this.props.scale, this.props.starColor).render(this.props.numStars, this.props.maxStarSpeed);
     return (starField);
   }
+
     updateWindowDimensions() {
     this.setState({ containerWidth: window.innerWidth, containerHeight: window.innerHeight });
     this._draw();
