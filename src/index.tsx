@@ -46,6 +46,7 @@ class BigBangStarField extends PureComponent <Props> {
     starColor: "217, 130, 244"
   };
 
+
   componentDidMount() {
     this._draw()
   }
@@ -188,7 +189,6 @@ class BigBangStarField extends PureComponent <Props> {
       oldHeight: number;
       scale: number;
       starColor: string;
-      timer_id: undefined;
 
       constructor(containerSize: SizeMe, scale: number, starColor: string) {
         this.containerSize = containerSize;
@@ -273,19 +273,25 @@ class BigBangStarField extends PureComponent <Props> {
     StarField.prototype._watchCanvasSize = function () {
       var width,
         height;
+      var resizeId: NodeJS.Timeout;
       var self = this;
+
       window.addEventListener("resize", function () {
+        clearTimeout(resizeId);
+        resizeId = setTimeout(doneResizing, 33);
         // Skip frames unless at least 333ms have passed since the last check
         // (Cap to ~3fps)
-        if (container != null) {
-          width = container.offsetWidth;
-          height = container.offsetHeight;
+        function doneResizing() {
+          if (container != null) {
+            width = container.offsetWidth;
+            height = container.offsetHeight;
 
-          if (self.oldWidth !== width || self.oldHeight !== height) {
-            self.oldWidth = width;
-            self.oldHeight = height;
-            self._adjustCanvasSize(width, height);
-            self._updateStarField();
+            if (self.oldWidth !== width || self.oldHeight !== height) {
+              self.oldWidth = width;
+              self.oldHeight = height;
+              self._adjustCanvasSize(width, height);
+              self._updateStarField();
+            }
           }
         }
       });
