@@ -3,7 +3,6 @@ import {createRef, PureComponent} from "react";
 
 const raf = require('raf');
 import sizeMe from 'react-sizeme';
-import {debounce} from "ts-debounce";
 
 export interface Props {
   numStars: number,
@@ -280,14 +279,31 @@ class BigBangStarField extends PureComponent <Props> {
      */
     StarField.prototype._watchCanvasSize = function () {
       const self = this;
-      const debouncedHandleResize = debounce(function() {
-        if (container != null) {
-          let width = container.offsetWidth;
-          let height = container.offsetHeight;
-          self._adjustCanvasSize(width, height)
+      // Setup a timer
+      var timeout: NodeJS.Timeout | null;
+      // Listen for resize events
+
+      window.addEventListener('resize', function ( ) {
+        console.log( 'no debounce' );
+
+        // If timer is null, reset it to 66ms and run your functions.
+        // Otherwise, wait until timer is cleared
+        if ( !timeout ) {
+          timeout = setTimeout(function() {
+
+            // Reset timeout
+            timeout = null;
+
+            // Run our resize functions
+            console.log( 'debounced' );
+            if (container != null) {
+              let width = container.offsetWidth;
+              let height = container.offsetHeight;
+              self._adjustCanvasSize(width, height)
+            }
+          }, 66);
         }
-      }, 330)
-      window.addEventListener("resize", debouncedHandleResize);
+      }, false);
     };
     StarField.prototype._tick = function () {
       this._updateStarField();
