@@ -90,7 +90,6 @@ StarField.prototype._updateStarField = function () {
     star.opacity += star.speed / 150;
     star.opacity += star.speed / 150;
 
-    star.width = 0.5 + ((star.distanceTo(0, 0)) * 0.002);
 
     if ((Math.abs(star.x) > this.canvasWidth / 2) ||
       (Math.abs(star.y) > this.canvasHeight / 2)) {
@@ -113,7 +112,7 @@ StarField.prototype._initScene = function (this: any, numStars: number) {
   for (i = 0; i < numStars; i++) {
     try {
       this.stars.push(
-        StarFactory.getRandomStar(-this.canvasWidth / 2, -this.canvasHeight / 2, this.canvasWidth / 2, this.canvasHeight / 2, this.maxStarSpeed)
+        StarFactory.getRandomStar(-this.canvasWidth / 2, -this.canvasHeight / 2, this.canvasWidth, this.canvasHeight, this.maxStarSpeed)
       );
     } catch {
     }

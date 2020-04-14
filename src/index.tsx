@@ -50,7 +50,6 @@ class BigBangStarField extends PureComponent <Props> {
 
   componentDidMount() {
     this.ctx = this.canvasRef.current!.getContext('2d');
-    this.ctx!.scale(4, 4);
     this.starField.render(this.props.numStars, this.props.maxStarSpeed);
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
@@ -65,11 +64,9 @@ class BigBangStarField extends PureComponent <Props> {
   updateWindowDimensions() {
     this.setState({containerWidth: window.innerWidth, containerHeight: window.innerHeight});
     this.starField.state = this.state;
-    this.starField.containerHeigh =
     this.starField.canvasWidth= this.state.containerWidth / this.props.scale;
     this.starField.canvasHeight = this.state.containerHeight / this.props.scale;
-    this.starField.canvasWidth= this.state.containerWidth / this.props.scale;
-    console.log(this.starField.state);
+    this.ctx!.scale(this.props.scale, this.props.scale);
     this._draw();
   }
 
