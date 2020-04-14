@@ -110,7 +110,6 @@ class BigBangStarField extends PureComponent <Props> {
     let starField = this.starField;
     var i,
       star;
-    (ctx)!.fillStyle = "rgba(255, 0, 0, 0)";
     let width = starField.canvasWidth;
     let height = starField.canvasHeight;
     ctx!.clearRect(0, 0, width, height);
