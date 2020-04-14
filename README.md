@@ -2,7 +2,7 @@
 
 > ✨ Canvas-based Big Bang Star Field animation for React.
 
-[![NPM](https://img.shields.io/npm/v/react-big-bang-star-field.svg)](https://www.npmjs.com/package/react-big-bang-star-field)  [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)(https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-big-bang-star-field.svg)](https://www.npmjs.com/package/react-big-bang-star-field)  [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
 
 [![Demo](https://raw.githubusercontent.com/chrisjosephs/react-big-bang-star-field/master/example/example.gif)](https://chrisjosephs.github.io/react-big-bang-star-field/)
 
