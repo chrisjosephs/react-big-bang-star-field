@@ -22,8 +22,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {
-    "raf": "^3.4.1",
-    "ts-debounce": "^2.0.1"
+    "raf": "^3.4.1"
   },
   "peerDependencies": {
     "prop-types": "^15.5.4",
