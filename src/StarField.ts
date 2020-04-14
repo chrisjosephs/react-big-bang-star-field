@@ -10,7 +10,7 @@ export class StarField {
   _renderStarField: () => void;
   maxStarSpeed: number;
   numStars: number;
-  starField: any;
+  stars: any;
   _tick: any;
   render: (numStars: number, maxStarSpeed: number) => void;
   _initScene: (this: any, numStars: number) => void;
@@ -29,7 +29,7 @@ export class StarField {
   constructor(state: any, scale: number, starColor: string) {
     this.canvasWidth = state.containerWidth / scale;
     this.canvasHeight = state.containerHeight / scale;
-    this.starField = [];
+    this.stars = [];
     this.scale = scale;
     this.starColor = starColor;
     return this;
@@ -82,7 +82,7 @@ StarField.prototype._updateStarField = function () {
     increment;
 
   for (i = 0; i < this.numStars; i++) {
-    star = this.starField[i];
+    star = this.stars[i];
     increment = Math.min(star.speed, Math.abs(star.speed / star.slope));
     star.x += (star.x > 0) ? increment : -increment;
     star.y = star.slope * star.x;
@@ -112,8 +112,8 @@ StarField.prototype._initScene = function (this: any, numStars: number) {
   var i;
   for (i = 0; i < numStars; i++) {
     try {
-      this.starField.push(
-        StarFactory.getRandomStar(-this.canvasWidth / 2, -this.canvasHeight / 2, this.canvasWidth, this.canvasHeight, this.maxStarSpeed)
+      this.stars.push(
+        StarFactory.getRandomStar(-this.canvasWidth / 2, -this.canvasHeight / 2, this.canvasWidth / 2, this.canvasHeight / 2, this.maxStarSpeed)
       );
     } catch {
     }

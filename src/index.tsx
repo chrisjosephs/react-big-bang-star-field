@@ -54,14 +54,22 @@ class BigBangStarField extends PureComponent <Props> {
     this.starField.render(this.props.numStars, this.props.maxStarSpeed);
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
+    this._tick()
   }
 
   componentWillUnmount() {
+    raf.cancel(this._tickRaf)
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
   updateWindowDimensions() {
     this.setState({containerWidth: window.innerWidth, containerHeight: window.innerHeight});
+    this.starField.state = this.state;
+    this.starField.containerHeigh =
+    this.starField.canvasWidth= this.state.containerWidth / this.props.scale;
+    this.starField.canvasHeight = this.state.containerHeight / this.props.scale;
+    this.starField.canvasWidth= this.state.containerWidth / this.props.scale;
+    console.log(this.starField.state);
     this._draw();
   }
 
@@ -110,8 +118,7 @@ class BigBangStarField extends PureComponent <Props> {
     let height = starField.canvasHeight;
     ctx!.clearRect(0, 0, width, height);
     for (i = 0; i < starField.numStars; i++) {
-      star = starField[i];
-      console.log(star);
+      star = starField.stars[i];
       ctx!.fillStyle = "rgba(" + starField.starColor + ", " + star.opacity + ")";
       ctx!.beginPath();
       ctx!.arc(star.x + width / 2, star.y + height / 2, star.width, 0, 2 * Math.PI, true);
