@@ -10,7 +10,7 @@ export default class App extends Component {
       <div
         style={{
           background: `url(${background})`,
-          backgroundSize: 'stretch',
+          backgroundSize: 'cover',
           minHeight: '100vh',
           display: 'flex',
           justifyContent: 'center',
