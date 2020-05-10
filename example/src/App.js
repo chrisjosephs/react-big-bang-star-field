@@ -11,6 +11,7 @@ export default class App extends Component {
         style={{
           background: `url(${background})`,
           backgroundSize: 'cover',
+          display: 'flex',
           minHeight: '100vh',
           justifyContent: 'center',
           alignItems: 'center'
