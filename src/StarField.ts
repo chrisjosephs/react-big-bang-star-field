@@ -7,18 +7,12 @@ import {Star} from "./Star";
  */
 export class StarField {
   _updateStarField: () => void;
-  _renderStarField: () => void;
   maxStarSpeed: number;
   numStars: number;
   stars: any;
   _tick: any;
   render: (numStars: number, maxStarSpeed: number) => void;
   _initScene: (this: any, numStars: number) => void;
-  _adjustCanvasSize: (width: number, height: number) => void;
-  _watchCanvasSize: (elapsedTime: number) => void;
-  prevCheckTime: number;
-  oldWidth: number;
-  oldHeight: number;
   scale: number;
   starColor: string;
   canvasWidth: number;
