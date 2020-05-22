@@ -27,7 +27,7 @@ class BigBangStarField extends PureComponent <Props> {
   containerRef: React.RefObject<HTMLDivElement>;
   canvasRef: React.RefObject<HTMLCanvasElement>;
   state: { containerWidth: number; containerHeight: number }
-  private starField: StarField;
+  private readonly starField: StarField;
   private ctx: any;
   _tickRaf: number;
 
@@ -67,7 +67,6 @@ class BigBangStarField extends PureComponent <Props> {
     this.starField.canvasWidth= this.state.containerWidth / this.props.scale;
     this.starField.canvasHeight = this.state.containerHeight / this.props.scale;
     this.ctx!.scale(this.props.scale, this.props.scale);
-    this._draw();
   }
 
   render() {
@@ -130,5 +129,4 @@ class BigBangStarField extends PureComponent <Props> {
   }
 }
 
-// @ts-ignore
 export default BigBangStarField;
