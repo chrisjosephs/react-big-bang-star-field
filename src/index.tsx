@@ -22,7 +22,7 @@ export interface SizeMe {
   width: number,
   height: number
 }
-
+declare var global: any
 class BigBangStarField extends PureComponent <Props> {
   containerRef: React.RefObject<HTMLDivElement>;
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -35,6 +35,7 @@ class BigBangStarField extends PureComponent <Props> {
     super(props);
     this.containerRef = createRef();
     this.canvasRef = createRef();
+    if (typeof(window) == 'undefined') global.window = new Object();
     this.state = {containerWidth: window.innerWidth, containerHeight: window.innerHeight};
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.starField = new StarField(this.state, this.props.scale, this.props.starColor);
