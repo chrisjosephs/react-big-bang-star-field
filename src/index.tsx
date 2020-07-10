@@ -27,7 +27,7 @@ class BigBangStarField extends PureComponent <Props> {
   containerRef: React.RefObject<HTMLDivElement>;
   canvasRef: React.RefObject<HTMLCanvasElement>;
   state: { containerWidth: number; containerHeight: number }
-  private readonly starField: StarField;
+  starField: StarField;
   private ctx: any;
   _tickRaf: number;
 
@@ -36,9 +36,9 @@ class BigBangStarField extends PureComponent <Props> {
     this.containerRef = createRef();
     this.canvasRef = createRef();
     if (typeof(window) == 'undefined') global.window = new Object();
-    this.state = {containerWidth: window.innerWidth, containerHeight: window.innerHeight};
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this.starField = new StarField(this.state, this.props.scale, this.props.starColor);
+    this.state = {containerWidth: 0, containerHeight: 0};
+    this.updateContainerDimensions = this.updateContainerDimensions.bind(this);
+
   }
 
   static defaultProps = {
@@ -51,21 +51,25 @@ class BigBangStarField extends PureComponent <Props> {
 
   componentDidMount() {
     this.ctx = this.canvasRef.current!.getContext('2d');
+    this.state = {containerWidth: this.containerRef.current!.offsetWidth, containerHeight: this.containerRef.current!.offsetHeight};
+    this.starField = new StarField(this.state, this.props.scale, this.props.starColor);
     this.starField.render(this.props.numStars, this.props.maxStarSpeed);
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
+    this.updateContainerDimensions();
+    window.addEventListener('resize', this.updateContainerDimensions);
     this._tick()
   }
 
   componentWillUnmount() {
     raf.cancel(this._tickRaf)
-    window.removeEventListener('resize', this.updateWindowDimensions);
+    window.removeEventListener('resize', this.updateContainerDimensions);
   }
 
-  updateWindowDimensions() {
-    this.setState({containerWidth: window.innerWidth, containerHeight: window.innerHeight});
+  updateContainerDimensions() {
+    this.state = {containerWidth: this.containerRef.current!.offsetWidth, containerHeight: this.containerRef.current!.offsetHeight};
     this.starField.state = this.state;
-    this.starField.canvasWidth= this.state.containerWidth / this.props.scale;
+    this.canvasRef.current!.height = this.state.containerHeight;
+    this.canvasRef.current!.width = this.state.containerWidth;
+    this.starField.canvasWidth  = this.state.containerWidth / this.props.scale;
     this.starField.canvasHeight = this.state.containerHeight / this.props.scale;
     this.ctx!.scale(this.props.scale, this.props.scale);
   }
@@ -84,6 +88,8 @@ class BigBangStarField extends PureComponent <Props> {
       <div className={'BigBangStarFieldContainer'}
            ref={this.containerRef}
            style={{
+             width: '100%',
+             height: '100%',
              overflow: 'hidden',
              ...style
            }}
